@@ -1,12 +1,10 @@
 def euclide(r0, r1):
-
     u0 = 1
     u1 = 0
     v0 = 0
     v1 = 1
 
-    while r1 != 0:
-
+    while r1 > 1:
         q = r0 // r1
 
         r = r0 % r1
@@ -23,5 +21,16 @@ def euclide(r0, r1):
     print("u = %d, v = %d" %(u, v))
     return (u, v)
 
-#u, v = euclide(325, 145)
-#print("u = %d, v = %d" %(u, v))
+
+def expMod(p, g, a):
+    if (a==1):
+        return g % p
+    elif (a%2==0):
+        expMod(p, (g**2) % p, (a/2) % p)
+    else:
+        expMod(p, (g**2) % p, ((a-1)/2) % p)
+
+
+
+u, v = euclide(325, 145)
+print("u =", u, "v =", v)
