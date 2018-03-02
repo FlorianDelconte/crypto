@@ -31,6 +31,10 @@ def expMod(p, g, a):
         return (g * expMod(p, (g**2) % p, ((a-1)/2) % p)) % p
 
 
+#def keyGen(p, g):
+
+
+
 
 u, v = euclide(325, 145)
 print("u =", u, "v =", v)
