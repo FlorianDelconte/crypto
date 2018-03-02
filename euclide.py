@@ -26,11 +26,13 @@ def expMod(p, g, a):
     if (a==1):
         return g % p
     elif (a%2==0):
-        expMod(p, (g**2) % p, (a/2) % p)
-    else:
-        expMod(p, (g**2) % p, ((a-1)/2) % p)
+        return expMod(p, (g**2) % p, (a/2) % p) % p
+    elif ((a%2==1) and (a > 2)):
+        return (g * expMod(p, (g**2) % p, ((a-1)/2) % p)) % p
 
 
 
 u, v = euclide(325, 145)
 print("u =", u, "v =", v)
+
+print(expMod(17, 9, 1))
