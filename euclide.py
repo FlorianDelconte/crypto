@@ -21,7 +21,7 @@ def euclide(r0, r1):
         u1 = u
         v0 = v1
         v1 = v
-     #print("u = %d, v = %d" %(u, v))
+    
     return (u, v)
 
 #g=2
@@ -48,8 +48,47 @@ def expMod(p, g, a):
         return  gmpy2.f_mod(gmpy2.mul(expMod(p, ng, na),g),p)
         #return (g * expMod(p, (g**2) % p, ((a-1)/2) % p)) % p
 
+def keyGen(p, g):
+    x = random.randint(2, p-2)
+    X = expMod(p, g, x)
+    return (x, X)
 
-#def keyGen(p, g):
+
+def encrypt(p, g, X, m):
+    r = random.randint(2, p-2)
+    print("R = ",r)
+    y = expMod(p, X, r)
+    print("Y = ",y)
+    C = (m * y) % p
+    B = expMod(p, g, r)
+    return (C, B)
+
+def decrypt(p, C, B, x):
+    D = expMod(p, B, x)
+    print("D = ",D)
+    u, v = euclide(D, p)
+    inverseD = u
+    print("inverse = ",inverseD)
+    m = (C * inverseD) % p
+    return m
+
+
+
+'''u, v = euclide(325, 145)
+print("u =", u, "v =", v)
+
+print(expMod(17, 9, 1))'''
+
+'''p = 17
+x, X = keyGen(p, 2)
+print("x = ",x)
+print("X = ",X)
+C, B = encrypt(p, 2, X, 16)
+print("C = ",C)
+print("B = ",B)
+m = decrypt(p, C, B, x)
+print(m)'''
+
 
 '''void expMod(mpz_t res,mpz_t p,mpz_t g,mpz_t a) {
 //         On applique le modulo après chaque calcul
