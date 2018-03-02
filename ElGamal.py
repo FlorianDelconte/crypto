@@ -22,27 +22,54 @@ print (cpt)
 
 
 #######################################"TEST EXPMOD"
-
 '''
-for i in range(1,10001):
-    #g=gmpy2.mpz_rrandomb(gmpy2.random_state(randint(0,999999999999999)),1024)
+sys.setrecursionlimit(1500)
+cptexpMod=0
+for i in range(0,10000):
+    a=gmpy2.mpz_rrandomb(gmpy2.random_state(randint(999999999999999,999999999999999999999999999999999999999999999999999999999999)),1024)
+    r=euclide.expMod(p,g,a)
+    if(r==gmpy2.powmod(g,a,p)):
+        #print("CA MARCHE FDPx")
+        cptexpMod=cptexpMod+1
+print (cptexpMod)'''
 
 
-    r=euclide.expMod(p,g,i)
-    if ((g**i)%p==r):
-        cpt=cpt+1
-print (cpt)
-'''
-a=88766687893365354535363737363536536327748498737938276467
-r=euclide.expMod(p,g,a)
-if(r==gmpy2.powmod(g,a,p)):
-    print("CA MARCHE FDPx")
+########################################TEST KEYGEN/ENCRYPT/ DECRYPT
+'''sys.setrecursionlimit(1500)
+x , X=euclide.keyGen(p,g)
+print("Bob génère clef privée : ",x)
+print("Bob génère clef publique : ",X)
 
 
+m=1562766473638209786454637777777777766666666666555555555
+print("Alice chiffre le message :",m)
+C ,B =euclide.encrypt(p,g,X,m)
+print("Alice envoie :",C)
+print("Alice envoie :",B)
+
+print("Bob recoit le message chiffré, il le déchiffre")
+m2=euclide.decrypt(p,C,B,x)
+print("message déchiffré :",m2)'''
 
 
+######################################### PROPRIETE HOMOMORPHIQUE
+sys.setrecursionlimit(1500)
+x , X=euclide.keyGen(p,g)
+m1 = 150
+C1, B1 = euclide.encrypt(p,g,X,m1)
 
+m2 = 10
+C2, B2 = euclide.encrypt(p,g,X,m2)
 
+C = gmpy2.mul(C1,C2)
+B = gmpy2.mul(B1,B2)
+
+m = euclide.decrypt(p,C,B,x)
+mtest=(m1*m2)%p
+if(m==mtest):
+    print("CA MARCHE FDP")
+print(m)
+print(mtest)
 
 
 
