@@ -1,6 +1,7 @@
 import math
 import gmpy2
 import euclide
+from random import randint
 from gmpy2 import mpz, digits
 
 g=2
@@ -8,16 +9,21 @@ p=int("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63
 cpt=0
 
 #######################################"TEST EUCLIDE"
-for i in range(1,10):
-    u, v=euclide.euclide(i,p)
-    if (i*u+p*v==1):
+#for i in range(1,10001):
+#    a=gmpy2.mpz_rrandomb(gmpy2.random_state(randint(0,999999999999999)),1024)
+#    u, v=euclide.euclide(a,p)
+#    if (a*u+p*v==1):
+#        cpt=cpt+1
+#print (cpt)
 
+
+#######################################"TEST EXPMOD"
+for i in range(1,10001):
+    g=gmpy2.mpz_rrandomb(gmpy2.random_state(randint(0,999999999999999)),1024)
+    r=euclide.expMod(17,g,i)
+    if ((g**i)%17==r):
         cpt=cpt+1
-
 print (cpt)
-
-
-
 
 
 

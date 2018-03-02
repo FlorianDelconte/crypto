@@ -18,7 +18,7 @@ def euclide(r0, r1):
         u1 = u
         v0 = v1
         v1 = v
-    print("u = %d, v = %d" %(u, v))
+     #print("u = %d, v = %d" %(u, v))
     return (u, v)
 
 
